@@ -1,0 +1,20 @@
+{
+  "name": "deep-interview",
+  "interface": {
+    "displayName": "Deep Interview"
+  },
+  "plugins": [
+    {
+      "name": "deep-interview",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
