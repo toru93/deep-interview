@@ -1,80 +1,57 @@
 ---
 name: deep-interview
 description: |
-  Use this skill to turn vague requests into clear, execution-ready requirements through a Socratic interview.
-  Trigger when the user asks for deep interview, requirements clarification, thought organization, interview me, don't assume, 심층 인터뷰, 요구사항 명확화, 생각 정리, インタビュー, 要件整理, or when goal, scope, constraints, or acceptance criteria are unclear.
-  Do not use for already-specific requests, small typo fixes, narrow configuration changes, or test additions where asking would add little value.
+  曖昧な依頼をソクラテス式の質問でインタビューし、実行可能な要件に整理する。
+  ユーザーが deep-interview、深掘りインタビュー、要件明確化、思考整理を求めたとき、または目的、範囲、制約、完了基準が曖昧なときに使う。
+  依頼がすでに具体的な場合や、単純な誤字修正、小さな設定変更、テスト追加のように質問する価値が低い作業には使わない。
 argument-hint: "<rough request>"
 ---
 
 # Deep Interview
 
-Do not execute an ambiguous request immediately. Turn it into clear requirements first.
+曖昧な依頼をすぐに実行せず、明確な要件に整理する。
 
-The goal is not to ask many questions. The goal is to find the single highest-impact uncertainty and resolve it one step at a time.
+重要なのは質問をたくさんすることではなく、もっとも大きな不確実性を一つ選び、一つずつ解消すること。
 
-Use a Socratic style. Do not decide on behalf of the user. Ask questions that reveal their assumptions, decision criteria, tradeoffs, and boundaries.
+ソクラテス式に質問する。答えを代わりに決めるのではなく、ユーザーの暗黙の前提、選択肢、判断基準が明らかになるように質問する。
 
-## Language And Output
+## 質問の軸
 
-Detect the user's primary language from the current conversation and write all user-facing questions, summaries, recommendations, and final notes in that language.
+次の順序で、もっとも曖昧な軸を一つ選ぶ。
 
-If the user explicitly requests a language, tone, or output format, follow that request.
+- 目的
+- 範囲と除外範囲
+- 制約
+- 完了基準
+- 既存の文脈と影響範囲
 
-If multiple languages are mixed, follow the primary language of the latest user message.
+コードベースを見れば答えられる質問は、ユーザーに聞かずに直接確認する。
 
-Keep code identifiers, file paths, commands, product names, and error messages in their original form.
+## 進め方
 
-Preserve the output structure, but translate labels naturally into the user's language. For example:
+質問は一度に一つだけ行う。各質問では、現在の理解、詰まっている決定、推奨回答を短く提示する。
 
-```md
-Current understanding: {one-sentence summary}
-Blocked decision: {the most important unresolved uncertainty}
-Recommended answer: {optional recommendation}
-Question: {one focused question}
-```
-
-For Korean, use labels such as `현재 이해`, `막힌 결정`, `추천 답안`, `질문`.
-
-For Japanese, use labels such as `現在の理解`, `詰まっている決定`, `推奨回答`, `質問`.
-
-## Clarification Axes
-
-Pick the single most unclear axis in this order:
-
-- Goal
-- Scope and non-goals
-- Constraints
-- Acceptance criteria
-- Existing context and impact area
-
-If the answer can be discovered from the codebase or available context, inspect it directly instead of asking the user.
-
-## Interview Flow
-
-Ask one question at a time. Each question must include the current understanding, the blocked decision, an optional recommended answer, and one focused question.
-
-Use this structure with labels translated into the user's language:
+質問形式:
 
 ```md
-Current understanding: {summarize the request in one sentence}
-Blocked decision: {name the highest-impact uncertainty}
-Recommended answer: {offer a practical default if one exists}
-Question: {ask one question}
+現在の理解: {依頼を一文で要約}
+詰まっている決定: {もっとも重要な不確実性}
+推奨回答: {あれば提示}
+質問: {一つの質問}
 ```
 
-After the user answers, briefly update what has been decided. Ask another question only if an important uncertainty remains.
+回答を受け取ったら、決まった内容を短く更新し、まだ重要な不確実性が残っている場合にだけ次の質問をする。
 
-When choices help, provide only 2-3 options and always allow free-form input.
+選択肢が役に立つ場合は、2-3 個だけ提示し、必ず自由入力も許可する。
 
-## Stop Criteria
+## 終了基準
 
-Stop when these are clear enough to act on:
+次の項目が整理できたら止める。
 
-- Goal
-- In-scope work and out-of-scope work
-- Constraints
-- Acceptance criteria
-- Remaining open questions
+- 達成したい目的
+- 含める範囲と除外する範囲
+- 守るべき制約
+- 完了判断基準
+- まだ残っている未解決の質問
 
-At the end, summarize only the decisions and remaining open questions. Do not recap the entire conversation.
+最後には会話全体ではなく、決定事項と未解決の質問だけを要約する。

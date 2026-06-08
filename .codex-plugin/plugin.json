@@ -1,11 +1,12 @@
 {
   "name": "deep-interview",
   "version": "0.1.0",
-  "description": "A Codex skill that clarifies vague requests through a multilingual Socratic interview.",
+  "description": "Japanese localization of DevBrother's deep-interview Codex skill.",
   "author": {
-    "name": "Deep Interview contributors"
+    "name": "DevBrother",
+    "url": "https://github.com/devbrother2024"
   },
-  "homepage": "https://github.com/toru93/deep-interview",
+  "homepage": "https://github.com/devbrother2024/skills",
   "repository": "https://github.com/toru93/deep-interview",
   "license": "MIT",
   "keywords": [
@@ -18,19 +19,19 @@
   ],
   "skills": "./skills",
   "interface": {
-    "displayName": "Deep Interview",
-    "shortDescription": "Clarify vague requests before implementation.",
-    "longDescription": "Deep Interview asks one focused question at a time to clarify goals, scope, constraints, and acceptance criteria before Codex starts implementation. User-facing output follows the user's language.",
-    "developerName": "Deep Interview contributors",
+    "displayName": "Deep Interview 日本語版",
+    "shortDescription": "DevBrother's deep-interview skill localized into Japanese.",
+    "longDescription": "Japanese localization of DevBrother's deep-interview skill. It asks one focused question at a time to clarify goals, scope, constraints, and acceptance criteria before Codex starts implementation.",
+    "developerName": "DevBrother",
     "category": "Productivity",
     "capabilities": [
       "Interactive"
     ],
     "websiteURL": "https://github.com/toru93/deep-interview",
     "defaultPrompt": [
-      "Use deep-interview to clarify this rough idea.",
-      "Interview me before planning this feature.",
-      "요구사항이 아직 흐릿해. 먼저 질문하면서 정리해줘."
+      "deep-interview を使って、このラフなアイデアを整理してください。",
+      "この機能を計画する前に、まずインタビューしてください。",
+      "要件がまだ曖昧です。先に質問しながら整理してください。"
     ],
     "brandColor": "#2563EB"
   }

@@ -1,100 +1,85 @@
-# Deep Interview
+# Deep Interview 日本語版
 
-Codex가 러프한 요청을 바로 실행하지 않고, 사용자에게 한 번에 하나씩 질문하면서 목표, 범위, 제약, 완료 기준을 구체화하도록 만드는 Codex skill입니다.
+これは [devbrother2024/skills](https://github.com/devbrother2024/skills) の `deep-interview` skill を日本語化し、Codex plugin として配布しやすい形にしたリポジトリです。
 
-사용자에게 보여주는 질문과 요약은 사용자가 쓰는 언어에 맞춥니다. 한국어로 요청하면 한국어로, 일본어로 요청하면 일본어로, 영어로 요청하면 영어로 인터뷰합니다.
-
-日本語版: [README.ja.md](README.ja.md)
+原作は DevBrother によるものです。このリポジトリは原作の所有権を主張するものではなく、日本語ローカライズ版として配布するためのものです。
 
 ## Quickstart
 
-Codex에서는 이 저장소를 plugin marketplace로 추가한 뒤, Codex의 plugin browser에서 설치할 수 있습니다.
+Codex では、このリポジトリを plugin marketplace として追加したあと、Codex の plugin browser からインストールできます。
 
 ```bash
 codex plugin marketplace add toru93/deep-interview
 ```
 
-그다음 Codex를 열고 `/plugins`를 실행한 뒤, `Deep Interview` marketplace에서 `Deep Interview` plugin을 설치하세요.
+その後、Codex を開いて `/plugins` を実行し、`Deep Interview` plugin をインストールしてください。
 
 ```bash
 codex /plugins
 ```
 
-업데이트가 필요하면 marketplace를 갱신합니다.
+更新が必要な場合は marketplace を更新します。
 
 ```bash
 codex plugin marketplace upgrade deep-interview
 ```
 
-이 저장소는 `toru93/deep-interview`로 배포됩니다.
+## Skill
 
-## Skills
-
-| Skill | 설명 | 파일 |
+| Skill | 説明 | ファイル |
 | --- | --- | --- |
-| [`deep-interview`](skills/deep-interview/SKILL.md) | 러프한 요청을 바로 실행하지 않고, 한 번에 하나씩 질문하여 요구사항을 구체화하는 Codex skill | `skills/deep-interview/SKILL.md` |
+| [`deep-interview`](skills/deep-interview/SKILL.md) | 曖昧な依頼をすぐに実行せず、一問ずつ質問して実行可能な要件に整理する Codex skill | `skills/deep-interview/SKILL.md` |
 
-## Why This Exists
+## 目的
 
-AI 코딩 에이전트의 결과물 차이는 모델 성능보다 요구사항을 얼마나 명확히 정의했는지에서 크게 갈립니다.
+AI コーディングエージェントの成果は、モデル性能だけでなく、要件をどれだけ明確に定義できているかに大きく左右されます。
 
-문제는 처음부터 완벽한 프롬프트를 쓰기 어렵다는 점입니다. 사용자 본인도 아직 무엇을 원하는지 모르는 경우가 많기 때문입니다.
+しかし、最初から完璧なプロンプトを書くのは難しいものです。ユーザー自身も、まだ何を求めているのか整理できていない場合があります。
 
-`deep-interview`는 이 문제를 역으로 풉니다. AI에게 바로 실행을 맡기기 전에, AI가 먼저 사용자를 인터뷰하게 만들어 목표, 범위, 제약, 완료 기준을 명확하게 만듭니다.
+`deep-interview` はこの問題を逆から解きます。AI にすぐ実行させるのではなく、AI が先にユーザーへインタビューし、目的、範囲、制約、完了基準を明確にします。
 
-## deep-interview
+## 使うタイミング
 
-사용 시점:
+- アイデアはあるが、要件がまだ曖昧なとき
+- Plan Mode に入る前に、文脈をもう少し整理したいとき
+- コーディング、プロダクト企画、コンテンツ企画、業務自動化など、成果物の成功基準を先に合わせたいとき
 
-- 아이디어는 있지만 요구사항이 흐릿할 때
-- Plan Mode로 바로 들어가기 전에 맥락을 더 정리하고 싶을 때
-- 코딩, 제품 기획, 콘텐츠 기획, 업무 자동화처럼 결과물의 성공 기준을 먼저 맞춰야 할 때
-- 영어, 한국어, 일본어 등 사용자의 언어에 맞춰 인터뷰를 진행하고 싶을 때
-
-사용하지 않을 때:
-
-- 이미 파일, 함수, 변경 범위, 완료 기준이 명확할 때
-- 단순 오타 수정, 작은 설정 변경, 좁은 테스트 추가처럼 질문이 오히려 지연을 만들 때
-- 사용자가 명시적으로 질문 없이 바로 실행하라고 했을 때
-
-질문은 한 번에 하나만 묻고, 매 질문은 아래 구조를 따릅니다.
+質問は一度に一つだけ行い、各質問は次の構造に従います。
 
 ```md
-현재 이해: {요청을 한 문장으로 요약}
-막힌 결정: {가장 중요한 불확실성}
-추천 답안: {있으면 제시}
-질문: {한 가지 질문}
+現在の理解: {依頼を一文で要約}
+詰まっている決定: {もっとも重要な不確実性}
+推奨回答: {あれば提示}
+質問: {一つの質問}
 ```
 
-영어 사용자에게는 `Current understanding`, `Blocked decision`, `Recommended answer`, `Question`처럼 라벨을 영어로 바꿉니다. 일본어 사용자에게는 `現在の理解`, `詰まっている決定`, `推奨回答`, `質問`처럼 바꿉니다.
+次の項目が整理できたら、インタビューを終了します。
 
-다음 항목이 정리되면 인터뷰를 멈춥니다.
+- 達成したい目的
+- 含める範囲と除外する範囲
+- 守るべき制約
+- 完了判断基準
+- まだ残っている未解決の質問
 
-- 달성하려는 목표
-- 포함 범위와 제외 범위
-- 지켜야 할 제약
-- 완료 판단 기준
-- 아직 남은 열린 질문
+## 手動インストール
 
-## Manual Install
+plugin marketplace を使わず、直接コピーしても構いません。
 
-plugin marketplace를 쓰지 않고 직접 복사해도 됩니다.
-
-Codex 전역 설치:
+Codex グローバルインストール:
 
 ```bash
 mkdir -p ~/.agents/skills
 cp -R skills/deep-interview ~/.agents/skills/deep-interview
 ```
 
-Codex 프로젝트 설치:
+Codex プロジェクトインストール:
 
 ```bash
 mkdir -p .agents/skills
 cp -R skills/deep-interview .agents/skills/deep-interview
 ```
 
-설치 후 Codex 앱에서는 command menu에서 **Force Reload Skills**를 실행하거나 앱을 재시작하세요. Codex CLI에서는 새 세션을 시작하면 됩니다.
+インストール後、Codex アプリでは command menu から **Force Reload Skills** を実行するか、アプリを再起動してください。Codex CLI では新しいセッションを開始してください。
 
 ## Repository Structure
 
@@ -104,14 +89,16 @@ cp -R skills/deep-interview .agents/skills/deep-interview
 ├── .codex-plugin/plugin.json
 ├── skills/deep-interview/SKILL.md
 ├── LICENSE
-├── README.md
-└── README.ja.md
+├── NOTICE.md
+└── README.md
 ```
 
 ## Credits
 
-README 구조와 설치 안내 흐름은 [devbrother2024/skills](https://github.com/devbrother2024/skills)를 참고했습니다.
+- Original work: [devbrother2024/skills](https://github.com/devbrother2024/skills)
+- Original author: DevBrother
+- This repository: Japanese localization and Codex plugin packaging of the original `deep-interview` skill
 
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
